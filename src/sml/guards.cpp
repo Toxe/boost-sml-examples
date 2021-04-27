@@ -19,7 +19,6 @@ struct event3 {};
 
 auto guard1 = [](const event1& e) { return e.count_ == 0; };
 auto guard2 = [] { return true; };
-auto guard3 = [] { return true; };
 
 auto action1 = [] {};
 auto action2 = [] {};
@@ -33,7 +32,7 @@ struct simple {
         return make_transition_table(
           * state<state1> + event<event1> [ guard1 ] / action1 = state<state2>,
             state<state2> + event<event2> [ guard2 ] / action2 = state<state3>,
-            state<state3> + event<event3> [ guard3 ] / action3 = X
+            state<state3> + event<event3>            / action3 = X
         );
     }
 };
