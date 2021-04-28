@@ -1,4 +1,5 @@
 set(ALL_TARGETS
+    actions
     guards
     on_entry_exit
     simple
