@@ -1,3 +1,3 @@
-# C++ FSM Examples
+# [Boost].SML Examples
 
-Some examples and sample code for using Finite State Machines in C++.
+C++ state machine examples using [[Boost].SML](https://github.com/boost-ext/sml).
