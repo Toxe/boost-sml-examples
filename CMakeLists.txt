@@ -18,4 +18,4 @@ include(cmake/Sanitizers.cmake)
 find_package(fmt CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
 
-add_subdirectory(src/sml)
+add_subdirectory(src)
