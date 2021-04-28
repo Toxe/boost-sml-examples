@@ -3,6 +3,7 @@ set(ALL_TARGETS
     guards
     logging
     on_entry_exit
+    plant_uml
     simple
 )
 
