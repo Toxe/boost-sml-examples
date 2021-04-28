@@ -1,6 +1,7 @@
 set(ALL_TARGETS
     actions
     guards
+    logging
     on_entry_exit
     simple
 )
