@@ -29,7 +29,7 @@ struct action4 {
     }
 };
 
-struct simple {
+struct state_machine {
     auto operator()()
     {
         using namespace sml;
@@ -46,7 +46,7 @@ struct simple {
 
 int main()
 {
-    sml::sm<simple> sm;
+    sml::sm<state_machine> sm;
 
     sm.process_event(event1{});
     sm.process_event(event2{});
