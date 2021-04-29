@@ -19,7 +19,7 @@ struct event4 {};
 struct event5 {};
 
 auto action1 = [] { spdlog::info("simple action1"); };
-auto action2 = [](event2 e) { spdlog::info("action2 called with event of type \"{}\"", typeid(e).name()); };
+auto action2 = [](const event2& e) { spdlog::info("action2 called with event of type \"{}\"", typeid(e).name()); };
 auto action3a = [] {};
 auto action3b = [] {};
 
