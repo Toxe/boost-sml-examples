@@ -11,7 +11,6 @@ struct state3 {};
 
 struct event1 {
     int count_;
-    event1(const int count) : count_{count} {}
 };
 
 struct event2 {};
