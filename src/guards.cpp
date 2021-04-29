@@ -19,9 +19,10 @@ struct event3 {};
 auto guard1 = [](const event1& e) { return e.count_ == 0; };
 auto guard2 = [] { return true; };
 
-auto action1 = [] {};
-auto action2 = [] {};
-auto action3 = [] {};
+auto action1a = [] { spdlog::info("leave state1"); };
+auto action1b = [] { spdlog::info("stay in state1"); };
+auto action2 = [] { spdlog::info("leave state2"); };
+auto action3 = [] { spdlog::info("leave state3"); };
 
 struct state_machine {
     auto operator()()
@@ -29,9 +30,10 @@ struct state_machine {
         using namespace sml;
 
         return make_transition_table(
-          * state<state1> + event<event1> [ guard1 ] / action1 = state<state2>,
-            state<state2> + event<event2> [ guard2 ] / action2 = state<state3>,
-            state<state3> + event<event3>            / action3 = X
+          * state<state1> + event<event1> [  guard1 ] / action1a = state<state2>,
+            state<state1> + event<event1> [ !guard1 ] / action1b,
+            state<state2> + event<event2> [  guard2 ] / action2 = state<state3>,
+            state<state3> + event<event3>             / action3 = X
         );
     }
 };
