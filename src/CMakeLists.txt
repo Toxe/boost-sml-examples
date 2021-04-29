@@ -5,6 +5,7 @@ set(ALL_TARGETS
     on_entry_exit
     plant_uml
     simple
+    transitions
 )
 
 foreach(target ${ALL_TARGETS})
