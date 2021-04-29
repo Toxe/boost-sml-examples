@@ -1,5 +1,6 @@
 set(ALL_TARGETS
     actions
+    dependencies
     guards
     logging
     on_entry_exit
