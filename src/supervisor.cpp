@@ -103,6 +103,7 @@ struct state_machine {
             state<canceling_colorization> + event<colorization_results>                                                            = state<idling>,
             state<shutting_down>                                                                                                   = X
         );
+        // clang-format on
     }
 };
 
