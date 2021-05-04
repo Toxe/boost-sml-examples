@@ -37,7 +37,7 @@ struct shutting_down {};
 
 // events
 struct started {};
-struct image_request {};
+struct image_request { int n_; };
 struct calculation_results {};
 struct colorization_results {};
 struct quit {};
@@ -45,8 +45,9 @@ struct cancel {};
 
 // actions
 struct send_calculation_messages {
-    void operator()(supervisor& sv) {
-        sv.set(4);
+    void operator()(supervisor& sv, const image_request& e) {
+        spdlog::info("[action] send_calculation_messages, n={}", e.n_);
+        sv.set(e.n_);
     }
 };
 
@@ -114,7 +115,7 @@ int main()
     sml::sm<state_machine, sml::logger<my_logger>> sm{sv, logger};
 
     sm.process_event(started{});
-    sm.process_event(image_request{});
+    sm.process_event(image_request{4});
     assert(sm.is(sml::state<calculating>));
     sm.process_event(calculation_results{});
     sm.process_event(calculation_results{});
