@@ -76,7 +76,7 @@ struct has_all_results {
     }
 };
 
-struct has_not_all_results {
+struct waiting_for_results {
     bool operator()(const supervisor& sv) {
         return sv.waiting_for_results_ > 0;
     }
@@ -95,11 +95,11 @@ struct state_machine {
             state<calculating>            + event<cancel>                                                                          = state<canceling_calculation>,
             state<calculating>            + event<calculation_results>                            / receive_calculation_results{}  = state<receiving_calculation_results>,
             state<receiving_calculation_results>                        [ has_all_results{} ]     / send_colorization_messages{}   = state<coloring>,
-            state<receiving_calculation_results>                        [ has_not_all_results{} ]                                  = state<calculating>,
+            state<receiving_calculation_results>                        [ waiting_for_results{} ]                                  = state<calculating>,
             state<coloring>               + event<cancel>                                                                          = state<canceling_colorization>,
             state<coloring>               + event<colorization_results>                           / receive_colorization_results{} = state<receiving_colorization_results>,
             state<receiving_colorization_results>                       [ has_all_results{} ]                                      = state<idling>,
-            state<receiving_colorization_results>                       [ has_not_all_results{} ]                                  = state<coloring>,
+            state<receiving_colorization_results>                       [ waiting_for_results{} ]                                  = state<coloring>,
             state<canceling_calculation>  + event<calculation_results>                                                             = state<idling>,
             state<canceling_colorization> + event<colorization_results>                                                            = state<idling>,
             state<shutting_down>                                                                                                   = X
