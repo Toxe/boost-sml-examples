@@ -27,19 +27,46 @@ auto guard2 = [] { return true; };
 auto guard3 = [] { return true; };
 
 struct guard4 {
-    bool operator()() { return true; }
+    bool operator()() {
+        return true;
+    }
 };
 
 // actions
-auto action1 = [] { spdlog::info("action1"); };
-auto action2 = [](const event2& event) { spdlog::info("action2, value={}", event.value_); };
+auto action1 = [] {
+    #if defined(_MSC_VER) && !defined(__clang__)
+    spdlog::info("action1. __FUNCTION__: {}, __FUNCSIG__: {}", __FUNCTION__, __FUNCSIG__);
+    #elif defined(__clang__) || defined(__GNUC__)
+    spdlog::info("action1. __PRETTY_FUNCTION__: {}", __PRETTY_FUNCTION__);
+    #endif
+};
+
+auto action2 = [](const event2& event) {
+    #if defined(_MSC_VER) && !defined(__clang__)
+    spdlog::info("action2, value={}. __FUNCTION__: {}, __FUNCSIG__: {}", event.value_, __FUNCTION__, __FUNCSIG__);
+    #elif defined(__clang__) || defined(__GNUC__)
+    spdlog::info("action2, value={}. __PRETTY_FUNCTION__: {}", event.value_, __PRETTY_FUNCTION__);
+    #endif
+};
 
 struct action3 {
-    void operator()() { spdlog::info("action3"); }
+    void operator()() {
+        #if defined(_MSC_VER) && !defined(__clang__)
+        spdlog::info("action3. __FUNCTION__: {}, __FUNCSIG__: {}", __FUNCTION__, __FUNCSIG__);
+        #elif defined(__clang__) || defined(__GNUC__)
+        spdlog::info("action3. __PRETTY_FUNCTION__: {}", __PRETTY_FUNCTION__);
+        #endif
+    }
 };
 
 struct action4 {
-    void operator()(const event4& event) { spdlog::info("action4, value={}", event.value_); }
+    void operator()(const event4& event) {
+        #if defined(_MSC_VER) && !defined(__clang__)
+        spdlog::info("action4, value={}. __FUNCTION__: {}, __FUNCSIG__: {}", event.value_, __FUNCTION__, __FUNCSIG__);
+        #elif defined(__clang__) || defined(__GNUC__)
+        spdlog::info("action4, value={}. __PRETTY_FUNCTION__: {}", event.value_, __PRETTY_FUNCTION__);
+        #endif
+    }
 };
 
 struct state_machine {
