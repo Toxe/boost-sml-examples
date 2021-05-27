@@ -14,7 +14,7 @@ void dump_transition() noexcept
         dst_state = "[*]";
     }
 
-    if (T::initial) {
+    if constexpr (T::initial) {
         std::cout << "[*] --> " << src_state << std::endl;
     }
 
@@ -26,17 +26,17 @@ void dump_transition() noexcept
     const auto is_exit = boost::sml::aux::is_same<typename T::event, boost::sml::back::on_exit<boost::sml::_, boost::sml::_>>::value;
 
     // entry / exit entry
-    if (is_entry || is_exit) {
+    if constexpr (is_entry || is_exit) {
         std::cout << src_state;
     } else { // state to state transition
         std::cout << src_state << " --> " << dst_state;
     }
 
-    if (has_event || has_guard || has_action) {
+    if constexpr (has_event || has_guard || has_action) {
         std::cout << " :";
     }
 
-    if (has_event) {
+    if constexpr (has_event) {
         // handle 'on_entry' and 'on_exit' per plant-uml syntax
         auto event = std::string(boost::sml::aux::get_type_name<typename T::event>());
         if (is_entry) {
@@ -47,11 +47,11 @@ void dump_transition() noexcept
         std::cout << " " << event;
     }
 
-    if (has_guard) {
+    if constexpr (has_guard) {
         std::cout << " [" << boost::sml::aux::get_type_name<typename T::guard::type>() << "]";
     }
 
-    if (has_action) {
+    if constexpr (has_action) {
         std::cout << " / " << boost::sml::aux::get_type_name<typename T::action::type>();
     }
 
