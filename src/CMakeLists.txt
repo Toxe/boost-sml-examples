@@ -1,5 +1,6 @@
 set(ALL_TARGETS
     actions
+    data
     dependencies
     guards
     logging
@@ -12,6 +13,9 @@ set(ALL_TARGETS
 
 add_executable(actions
                actions.cpp)
+add_executable(data
+               data.cpp
+               common/dump.h)
 add_executable(dependencies
                dependencies.cpp)
 add_executable(guards
